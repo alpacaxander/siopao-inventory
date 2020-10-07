@@ -1,0 +1,67 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: admin
+      changes:
+        - createTable:
+            tableName: origin
+            columns:
+              - column:
+                  name: origin_id
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: origin_id
+              - column:
+                  name: short_desc
+                  type: varchar(255)
+              - column:
+                  name: era
+                  type: varchar(255)
+              - column:
+                  name: long_desc
+                  type: varchar(255)
+        - createTable:
+            tableName: product
+            columns:
+              - column:
+                  name: product_id
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: product_id
+              - column:
+                  name: currency
+                  type: varchar(255)
+              - column:
+                  name: origin_origin_id
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+                    foreignKeyName: origin_origin_id
+                    references: origin(origin_id)
+        - createTable:
+            tableName: coin
+            columns:
+              - column:
+                  name: coin_id
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: coin_id
+              - column:
+                  name: status
+                  type: varchar(255)
+              - column:
+                  name: location
+                  type: varchar(255)
+              - column:
+                  name: product_product_id
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+                    foreignKeyName: product_product_id
+                    references: product(product_id)
