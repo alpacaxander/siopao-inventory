@@ -3,23 +3,33 @@ package com.siopao.inventory.model;
 import com.yahoo.elide.annotation.Include;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.*;
 
-@Include(type = "origin", rootLevel = true)
 @Entity
+@Include(type = "origin", rootLevel = true)
+@Table(name = "origin")
 public class Origin {
     @Id
+    @NotNull
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "origin_id")
-    private String id = "";
+    private String id;
 
-    private String currency = ""; // USD, YEN, ?
+    @NotNull
+    private String name;
 
-    private String place = "";
+    private String description;
 
-    private String era = "";
+    @NotNull
+    private String currency; // EG pound
 
-    private String description = "";
+    @NotNull
+    private String nation; // EG England
+
+    @NotNull
+    private String era; // EG Victorian
 
     @OneToMany(mappedBy = "origin")
-    private Set<Product> products = new HashSet<>();
+    private Set<Product> products;
 }

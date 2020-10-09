@@ -14,14 +14,28 @@ databaseChangeLog:
                     primaryKey: true
                     primaryKeyName: origin_id
               - column:
-                  name: short_desc
+                  name: name
                   type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: varchar(255)
+              - column:
+                  name: currency
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: nation
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
               - column:
                   name: era
                   type: varchar(255)
-              - column:
-                  name: long_desc
-                  type: varchar(255)
+                  constraints:
+                    nullable: false
         - createTable:
             tableName: product
             columns:
@@ -33,15 +47,28 @@ databaseChangeLog:
                     primaryKey: true
                     primaryKeyName: product_id
               - column:
-                  name: currency
-                  type: varchar(255)
-              - column:
-                  name: origin_origin_id
+                  name: name
                   type: varchar(255)
                   constraints:
                     nullable: false
-                    foreignKeyName: origin_origin_id
-                    references: origin(origin_id)
+              - column:
+                  name: denomination
+                  type: currency
+                  constraints:
+                    nullable: false
+              - column:
+                  name: unit
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: origin_id
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+                    foreignKeyName: product-origin
+                    referencedTableName: origin
+                    referencedColumnNames: origin_id
         - createTable:
             tableName: coin
             columns:
@@ -55,13 +82,25 @@ databaseChangeLog:
               - column:
                   name: status
                   type: varchar(255)
+                  constraints:
+                    nullable: false
               - column:
                   name: location
                   type: varchar(255)
               - column:
-                  name: product_product_id
+                  name: condition
+                  type: varchar(255)
+              - column:
+                  name: craigslist_link
+                  type: varchar(255)
+              - column:
+                  name: facebook_link
+                  type: varchar(255)
+              - column:
+                  name: product_id
                   type: varchar(255)
                   constraints:
                     nullable: false
-                    foreignKeyName: product_product_id
-                    references: product(product_id)
+                    foreignKeyName: coin-product
+                    referencedTableName: product
+                    referencedColumnNames: product_id
