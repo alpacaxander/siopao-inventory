@@ -8,7 +8,8 @@ databaseChangeLog:
             columns:
               - column:
                   name: origin_id
-                  type: varchar(255)
+                  type: int
+                  autoIncrement: true
                   constraints:
                     nullable: false
                     primaryKey: true
@@ -41,7 +42,8 @@ databaseChangeLog:
             columns:
               - column:
                   name: product_id
-                  type: varchar(255)
+                  type: int
+                  autoIncrement: true
                   constraints:
                     nullable: false
                     primaryKey: true
@@ -63,9 +65,8 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: origin_id
-                  type: varchar(255)
+                  type: int
                   constraints:
-                    nullable: false
                     foreignKeyName: product-origin
                     referencedTableName: origin
                     referencedColumnNames: origin_id
@@ -74,7 +75,8 @@ databaseChangeLog:
             columns:
               - column:
                   name: coin_id
-                  type: varchar(255)
+                  type: int
+                  autoIncrement: true
                   constraints:
                     nullable: false
                     primaryKey: true
@@ -98,9 +100,8 @@ databaseChangeLog:
                   type: varchar(255)
               - column:
                   name: product_id
-                  type: varchar(255)
+                  type: int
                   constraints:
-                    nullable: false
                     foreignKeyName: coin-product
                     referencedTableName: product
                     referencedColumnNames: product_id

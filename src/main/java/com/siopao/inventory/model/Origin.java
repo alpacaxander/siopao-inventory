@@ -1,20 +1,21 @@
 package com.siopao.inventory.model;
 
-import com.yahoo.elide.annotation.Include;
+import com.yahoo.elide.annotation.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.*;
 
+@SharePermission
 @Entity
 @Include(type = "origin", rootLevel = true)
 @Table(name = "origin")
 public class Origin {
     @Id
     @NotNull
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "origin_id")
-    private String id;
+    private Integer id;
 
     @NotNull
     private String name;

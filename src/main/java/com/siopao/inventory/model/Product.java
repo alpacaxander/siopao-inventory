@@ -1,20 +1,22 @@
 package com.siopao.inventory.model;
 
-import com.yahoo.elide.annotation.Include;
+import com.yahoo.elide.annotation.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.Set;
 
+@SharePermission
 @Entity
 @Include(type = "product", rootLevel = true)
 @Table(name = "product")
 public class Product {
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @NotNull
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "product_id")
-    private String id;
+    private Integer id;
 
     @NotNull
     private String name;
