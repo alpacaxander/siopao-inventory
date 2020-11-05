@@ -21,16 +21,22 @@ public class Product {
     @NotNull
     private String name;
 
+    private String description;
+
+    @NotNull
+    private String currency; // EG pound
+
+    @NotNull
+    private String nation; // EG England
+
+    @NotNull
+    private String era; // EG Victorian
+
     @NotNull
     private BigDecimal denomination;
 
     @NotNull
     private String unit;
-
-    @NotNull
-    @ManyToOne
-    @JoinColumn(name = "origin_id")
-    private Origin origin;
 
     @OneToMany(mappedBy = "product")
     private Set<Coin> coins;

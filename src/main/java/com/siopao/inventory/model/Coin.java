@@ -4,6 +4,7 @@ import com.yahoo.elide.annotation.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.io.InputStream;
 
 @SharePermission
 @Entity
@@ -28,8 +29,6 @@ public class Coin {
 
     @Column(name = "facebook_link")
     private String facebookLink;
-
-    // TODO images
 
     @ManyToOne
     @JoinColumn(name = "product_id")

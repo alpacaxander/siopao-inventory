@@ -4,16 +4,16 @@ databaseChangeLog:
       author: admin
       changes:
         - createTable:
-            tableName: origin
+            tableName: product
             columns:
               - column:
-                  name: origin_id
+                  name: product_id
                   type: int
                   autoIncrement: true
                   constraints:
                     nullable: false
                     primaryKey: true
-                    primaryKeyName: origin_id
+                    primaryKeyName: product_id
               - column:
                   name: name
                   type: varchar(255)
@@ -37,22 +37,6 @@ databaseChangeLog:
                   type: varchar(255)
                   constraints:
                     nullable: false
-        - createTable:
-            tableName: product
-            columns:
-              - column:
-                  name: product_id
-                  type: int
-                  autoIncrement: true
-                  constraints:
-                    nullable: false
-                    primaryKey: true
-                    primaryKeyName: product_id
-              - column:
-                  name: name
-                  type: varchar(255)
-                  constraints:
-                    nullable: false
               - column:
                   name: denomination
                   type: currency
@@ -63,13 +47,6 @@ databaseChangeLog:
                   type: varchar(255)
                   constraints:
                     nullable: false
-              - column:
-                  name: origin_id
-                  type: int
-                  constraints:
-                    foreignKeyName: product-origin
-                    referencedTableName: origin
-                    referencedColumnNames: origin_id
         - createTable:
             tableName: coin
             columns:
