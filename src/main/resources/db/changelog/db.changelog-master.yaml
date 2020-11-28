@@ -8,8 +8,7 @@ databaseChangeLog:
             columns:
               - column:
                   name: product_id
-                  type: int
-                  autoIncrement: true
+                  type: uuid
                   constraints:
                     nullable: false
                     primaryKey: true
@@ -52,8 +51,7 @@ databaseChangeLog:
             columns:
               - column:
                   name: coin_id
-                  type: int
-                  autoIncrement: true
+                  type: uuid
                   constraints:
                     nullable: false
                     primaryKey: true
@@ -77,7 +75,7 @@ databaseChangeLog:
                   type: varchar(255)
               - column:
                   name: product_id
-                  type: int
+                  type: uuid
                   constraints:
                     foreignKeyName: coin-product
                     referencedTableName: product

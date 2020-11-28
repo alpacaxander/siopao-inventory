@@ -6,6 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.Set;
+import java.util.UUID;
 
 @SharePermission
 @Entity
@@ -14,9 +15,9 @@ import java.util.Set;
 public class Product {
     @Id
     @NotNull
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "product_id")
-    private Integer id;
+    private UUID id;
 
     @NotNull
     private String name;

@@ -4,7 +4,7 @@ import com.yahoo.elide.annotation.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.io.InputStream;
+import java.util.UUID;
 
 @SharePermission
 @Entity
@@ -13,9 +13,9 @@ import java.io.InputStream;
 public class Coin {
     @Id
     @NotNull
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "coin_id")
-    private Integer id;
+    private UUID id;
 
     @NotNull
     private String status; // TODO set as enum
