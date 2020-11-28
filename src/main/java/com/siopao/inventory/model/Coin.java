@@ -4,6 +4,7 @@ import com.yahoo.elide.annotation.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Set;
 import java.util.UUID;
 
 @SharePermission
@@ -33,4 +34,7 @@ public class Coin {
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;
+
+    @OneToMany(mappedBy = "coin")
+    private Set<Image> images;
 }
