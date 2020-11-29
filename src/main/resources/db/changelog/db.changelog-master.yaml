@@ -103,3 +103,14 @@ databaseChangeLog:
                     foreignKeyName: image-coin
                     referencedTableName: coin
                     referencedColumnNames: coin_id
+
+  - changeSet:
+      id: 2
+      author: admin
+      changes:
+        - addColumn:
+            tableName: image
+            columns:
+              - column:
+                  name: name
+                  type: varchar(63)

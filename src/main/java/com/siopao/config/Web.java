@@ -33,7 +33,7 @@ public class Web {
         ElideSettingsBuilder builder = new ElideSettingsBuilder(dataStore)
                 .withUseFilterExpressions(true)
                 .withEntityDictionary(dictionary)
-                .withJSONApiLinks(new DefaultJSONApiLinks())
+//                .withJSONApiLinks(new DefaultJSONApiLinks()) // links are currently broken :(
                 .withJoinFilterDialect(new RSQLFilterDialect(dictionary))
                 .withSubqueryFilterDialect(new RSQLFilterDialect(dictionary));
 //                .withAuditLogger(getAuditLogger());
