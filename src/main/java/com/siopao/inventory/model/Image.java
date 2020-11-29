@@ -18,6 +18,11 @@ public class Image {
 
     private Integer index;
 
+    private String name;
+
+    @Transient
+    private String data;
+
     @ManyToOne
     @JoinColumn(name = "coin_id")
     private Coin coin;
