@@ -71,7 +71,7 @@ public class Web {
 
                                     List<String> relationships = dictionary.getRelationships(previousResource.getResourceClass());
 
-                                    result.append(String.join(findRelationship(previousResource, currentResource));
+                                    result.append(String.join(findRelationship(previousResource, currentResource)));
                                     result.append("/");
 
                                     previousResource = currentResource;
