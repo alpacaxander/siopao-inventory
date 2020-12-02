@@ -47,8 +47,8 @@ public class Web {
                             public Map<String, String> getRelationshipLinks(PersistentResource resource, String field) {
                                 String resourceUrl = getResourceUrl(resource);
                                 return ImmutableMap.of(
-                                        "self", String.join("/", resourceUrl, "relationships", field),
-                                        "related", String.join("/", resourceUrl, field));
+                                        "self", String.join("", resourceUrl, "relationships/", field),
+                                        "related", String.join("", resourceUrl, field));
                             }
 
                             private String getResourceUrl(PersistentResource resource) {
@@ -59,26 +59,31 @@ public class Web {
                                 }
 
                                 Iterator<PersistentResource> iterator = resource.getLineage().getResourcePath().iterator();
-                                PersistentResource baseResource = iterator.next();
+                                if (iterator.hasNext()) {
+                                    PersistentResource baseResource = iterator.next();
 
-                                result.append(String.join("/", baseResource.getType(), baseResource.getId()));
-                                result.append("/");
-
-                                PersistentResource previousResource = baseResource;
-
-                                while (true) {
-                                    PersistentResource currentResource = iterator.next();
-
-                                    List<String> relationships = dictionary.getRelationships(previousResource.getResourceClass());
-
-                                    result.append(String.join(findRelationship(previousResource, currentResource)));
+                                    result.append(String.join("/", baseResource.getType(), baseResource.getId()));
                                     result.append("/");
 
-                                    previousResource = currentResource;
-                                    if (!iterator.hasNext()) {
-                                        result.append(findRelationship(previousResource, resource));
-                                        break;
+                                    PersistentResource previousResource = baseResource;
+
+                                    while (true) {
+                                        PersistentResource currentResource = iterator.next();
+                                        result.append(String.join(findRelationship(previousResource, currentResource)));
+                                        result.append("/");
+
+                                        previousResource = currentResource;
+                                        if (!iterator.hasNext()) {
+                                            result.append(findRelationship(previousResource, resource));
+                                            result.append("/");
+                                            break;
+                                        }
                                     }
+                                } else {
+                                    result.append(String.join("/", resource.getType(), resource.getId()));
+                                    result.append("/");
+
+                                    PersistentResource previousResource = resource;
                                 }
                                 return result.toString();
                             }
