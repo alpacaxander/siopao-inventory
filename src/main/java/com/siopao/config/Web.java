@@ -58,33 +58,28 @@ public class Web {
                                     result.append(resource.getRequestScope().getBaseUrlEndPoint());
                                 }
 
-                                Iterator<PersistentResource> iterator = resource.getLineage().getResourcePath().iterator();
-                                if (iterator.hasNext()) {
-                                    PersistentResource baseResource = iterator.next();
+                                if (resource.getLineage().getResourcePath().size() == 0) {
+                                    result.append(String.join("/", resource.getType(), resource.getId()));
+                                } else {
 
+                                    Iterator<PersistentResource> iterator = resource.getLineage().getResourcePath().iterator();
+                                    PersistentResource baseResource = iterator.next();
                                     result.append(String.join("/", baseResource.getType(), baseResource.getId()));
                                     result.append("/");
-
                                     PersistentResource previousResource = baseResource;
-
-                                    while (true) {
-                                        PersistentResource currentResource = iterator.next();
-                                        result.append(String.join(findRelationship(previousResource, currentResource)));
+                                    PersistentResource currentResource;
+                                    while (iterator.hasNext()) {
+                                        currentResource = iterator.next();
+                                        result.append(findRelationship(previousResource, currentResource));
                                         result.append("/");
-
                                         previousResource = currentResource;
+
                                         if (!iterator.hasNext()) {
                                             result.append(findRelationship(previousResource, resource));
-                                            result.append("/");
-                                            break;
                                         }
                                     }
-                                } else {
-                                    result.append(String.join("/", resource.getType(), resource.getId()));
-                                    result.append("/");
-
-                                    PersistentResource previousResource = resource;
                                 }
+                                result.append("/");
                                 return result.toString();
                             }
 
