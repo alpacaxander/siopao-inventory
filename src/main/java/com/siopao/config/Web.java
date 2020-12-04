@@ -52,41 +52,46 @@ public class Web {
                             }
 
                             private String getResourceUrl(PersistentResource resource) {
-
-                                StringBuilder result = new StringBuilder();
-                                if (resource.getRequestScope().getBaseUrlEndPoint() != null) {
-                                    result.append(resource.getRequestScope().getBaseUrlEndPoint());
-                                }
-
-                                if (resource.getLineage().getResourcePath().size() == 0) {
-                                    result.append(String.join("/", resource.getType(), resource.getId()));
-                                } else {
-
-                                    Iterator<PersistentResource> iterator = resource.getLineage().getResourcePath().iterator();
-                                    PersistentResource baseResource = iterator.next();
-                                    result.append(String.join("/", baseResource.getType(), baseResource.getId()));
-                                    result.append("/");
-                                    PersistentResource previousResource = baseResource;
-                                    PersistentResource currentResource;
-                                    while (iterator.hasNext()) {
-                                        currentResource = iterator.next();
-                                        result.append(findRelationship(previousResource, currentResource));
-                                        result.append("/");
-                                        previousResource = currentResource;
-
-                                        if (!iterator.hasNext()) {
-                                            result.append(findRelationship(previousResource, resource));
-                                        }
+                                try {
+                                    StringBuilder result = new StringBuilder();
+                                    if (resource.getRequestScope().getBaseUrlEndPoint() != null) {
+                                        result.append(resource.getRequestScope().getBaseUrlEndPoint());
                                     }
+
+                                    if (resource.getLineage().getResourcePath().size() == 0) {
+                                        result.append(String.join("/", resource.getType(), resource.getId()));
+                                    } else {
+                                        Iterator<PersistentResource> iterator = resource.getLineage().getResourcePath().iterator();
+                                        boolean firstPass = true;
+                                        PersistentResource previousResource = null;
+                                        PersistentResource currentResource;
+                                        do {
+                                            currentResource = iterator.next();
+                                            if (firstPass) {
+                                                firstPass = false;
+                                                result.append(String.join("/", currentResource.getType(), currentResource.getId()));
+                                            } else {
+                                                result.append(findRelationship(previousResource, currentResource));
+                                            }
+                                            result.append("/");
+                                            previousResource = currentResource;
+
+                                            if (!iterator.hasNext()) {
+                                                result.append(findRelationship(previousResource, resource));
+                                            }
+                                        } while (iterator.hasNext());
+                                    }
+                                    result.append("/");
+                                    return result.toString();
+                                } catch (Exception e) {
+                                    return "";
                                 }
-                                result.append("/");
-                                return result.toString();
                             }
 
                             private String findRelationship(PersistentResource a, PersistentResource b) {
                                 String result = null;
                                 List<String> relationships = dictionary.getRelationships(a.getResourceClass());
-                                for (String relationship: relationships) {
+                                for (String relationship : relationships) {
                                     if (dictionary.getParameterizedType(a.getResourceClass(), relationship) == b.getResourceClass()) {
                                         if (a.getRelationshipType(relationship).isToMany()) {
                                             result = String.join(
