@@ -1,6 +1,8 @@
 package com.siopao.inventory.model;
 
 import com.yahoo.elide.annotation.*;
+import com.yahoo.elide.core.RequestScope;
+import org.springframework.web.client.RestTemplate;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -21,7 +23,10 @@ public class Image {
     private String name;
 
     @Transient
-    private String data;
+    @ComputedAttribute
+    public String getData(RequestScope requestScope) {
+        return new RestTemplate().getForObject("http://files:8080/file/" + this.id, String.class);
+    }
 
     @ManyToOne
     @JoinColumn(name = "coin_id")
