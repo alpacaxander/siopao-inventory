@@ -5,7 +5,12 @@
 ################################################
 
 siopao:
-  gatewayUrl: ${GATEWAY_URL:}
+  gatewayUrl: ${GATEWAY_URL:http://localhost:8762}
+  services:
+    inventory:
+      route: service/inventory/
+    files:
+      route: service/files/
 
 elide:
   modelPackage: 'com.siopao.inventory.model'
