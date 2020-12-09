@@ -35,6 +35,6 @@ public class Coin {
     @JoinColumn(name = "product_id")
     private Product product;
 
-    @OneToMany(mappedBy = "coin")
+    @OneToMany(mappedBy = "coin", cascade = CascadeType.REMOVE)
     private Set<Image> images;
 }

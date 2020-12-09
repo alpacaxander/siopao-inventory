@@ -39,6 +39,6 @@ public class Product {
     @NotNull
     private String unit;
 
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "product", cascade = CascadeType.REMOVE)
     private Set<Coin> coins;
 }
