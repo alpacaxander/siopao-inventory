@@ -6,6 +6,7 @@ import com.yahoo.elide.ElideSettingsBuilder;
 import com.yahoo.elide.core.*;
 import com.yahoo.elide.core.filter.dialect.RSQLFilterDialect;
 import com.yahoo.elide.spring.config.ElideConfigProperties;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -17,6 +18,8 @@ import java.util.Map;
 
 @Configuration
 public class Web {
+    @Value("${siopao.gatewayUrl}")
+    private String gatewayUrl;
 
     @Bean
     public WebMvcConfigurer WebMvcConfigurer() {
@@ -54,7 +57,9 @@ public class Web {
                             private String getResourceUrl(PersistentResource resource) {
                                 try {
                                     StringBuilder result = new StringBuilder();
-                                    if (resource.getRequestScope().getBaseUrlEndPoint() != null) {
+                                    if (!gatewayUrl.equals("")) {
+                                        result.append(gatewayUrl);
+                                    } else if (resource.getRequestScope().getBaseUrlEndPoint() != null) {
                                         result.append(resource.getRequestScope().getBaseUrlEndPoint());
                                     }
 
@@ -111,7 +116,6 @@ public class Web {
                             }
                         }
                 )
-
                 .withJoinFilterDialect(new RSQLFilterDialect(dictionary))
                 .withSubqueryFilterDialect(new RSQLFilterDialect(dictionary));
         return new Elide(builder.build());
