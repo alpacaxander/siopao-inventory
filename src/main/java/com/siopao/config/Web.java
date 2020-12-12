@@ -18,8 +18,8 @@ import java.util.Map;
 
 @Configuration
 public class Web {
-    @Value("${siopao.gatewayUrl}")
-    private String gatewayUrl;
+    @Value("${siopao.services.inventory.url}")
+    private String selfUrl;
 
     @Bean
     public WebMvcConfigurer WebMvcConfigurer() {
@@ -57,11 +57,12 @@ public class Web {
                             private String getResourceUrl(PersistentResource resource) {
                                 try {
                                     StringBuilder result = new StringBuilder();
-                                    if (!gatewayUrl.equals("")) {
-                                        result.append(gatewayUrl);
+                                    if (!selfUrl.equals("")) {
+                                        result.append(selfUrl);
                                     } else if (resource.getRequestScope().getBaseUrlEndPoint() != null) {
                                         result.append(resource.getRequestScope().getBaseUrlEndPoint());
                                     }
+                                    result.append("/");
 
                                     if (resource.getLineage().getResourcePath().size() == 0) {
                                         result.append(String.join("/", resource.getType(), resource.getId()));
