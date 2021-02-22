@@ -9,7 +9,7 @@ import java.util.UUID;
 
 @SharePermission
 @Entity
-@Include(type = "coin")
+@Include(type = "coin", rootLevel = true)
 @Table(name = "coin")
 public class Coin {
     @Id
